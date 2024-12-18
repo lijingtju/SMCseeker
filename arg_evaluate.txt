@@ -1,0 +1,8 @@
+script evaluate
+datadir "The directory where the dataset folder resides, excluding the dataset file name."
+eval_threshold 0.3
+model_type resnet18AndMultiHeadAttention
+batch 32
+dataset 33w
+log_dir evaluate_log_53ep_mse
+resume ./weights/finetune/53_1726705785.pt

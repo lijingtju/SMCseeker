@@ -1,0 +1,6 @@
+script split
+datadir "The directory where the dataset folder resides, excluding the dataset file name."
+dataset "The name of your dataset"
+split_save_dir ./dataset/finetuning
+split_rule label >= 0.3
+split_scale 7,1.5,1.5

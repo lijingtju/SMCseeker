@@ -1,0 +1,18 @@
+script finetune
+datadir "The directory where the dataset folder resides, excluding the dataset file name."
+dataset "The name of your dataset"
+image_size 224
+save_model_dir ./weights/finetune
+model_type resnet18AndMultiHeadAttention
+loss_function mse
+batch 12
+expand_test_data_dir ./dataset/expand
+default_save_loss_log
+lr 0.0005
+epoch 200
+start_epoch 0
+output_result "result"
+resume ./weights/pretrain/pretrain.pt
+model_flag finetune_flag
+eval_threshold 0.3
+log_dir ./logs
