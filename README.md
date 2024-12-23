@@ -1,4 +1,4 @@
-# VirusImage
+# H1N1_SMCseeker
 
 ![architecture](./architecture.jpg "architecture")
 
