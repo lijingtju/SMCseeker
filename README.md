@@ -34,9 +34,13 @@ source ./venv/bin/activate
 pip install -r requirements.txt
 ```
 ## results files
+```
 ./result/reframe_SMC_PRED_CPR.csv
+```
 This is the results file for preditctive reframe library.
+```
 ./result/cheminfo_SMC_PRED_CPR.csv
+```
 This is the results file for preditctive ChemDev library.
 column of PRED is predictive score for a small molecular compounds.
 
