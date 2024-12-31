@@ -14,7 +14,7 @@ source ./venv/bin/activate
 pip install -r requirements.txt
 ```
 
-##Use H1N1-SMCseeker predict your small molecular compounds
+## Use H1N1-SMCseeker predict your small molecular compounds
 1. Input file requirements:
 Strictly follow the format of H1N1_world, including an index column (starting from 1).
 2. Generate images.
@@ -25,7 +25,7 @@ python generate.py your_filename
 ```shell
 python main.py --in arg_evaluate.txt
 ```
-##Use SMCseer framework to train your model. Please note that our framework has the capability to be adapted to any antiviral drug research.
+## Use SMCseer framework to train your model. Please note that our framework has the capability to be adapted to any antiviral drug research.
 1. Split the data set (train, test, val)
 ```shell
 python main.py --in arg_split.txt
