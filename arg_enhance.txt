@@ -4,6 +4,6 @@ dataset "The name of your dataset"
 enhance_save_path "The save directory for data augmentation"
 preserve_original_data
 enhance_list flip_horizontal,flip_vertical,rotation_[20-80],rotation_[110-160],rotation_[200-250],rotation_[270-340],sp_noise
-enhance_rule label>=0.3 (In our work, data augmentation is applied to those with CPR >= 0.3. Users can adjust this threshold as needed.)
+enhance_rule label>=0.3
 sp_noise_scale 0.01
 worker 5
