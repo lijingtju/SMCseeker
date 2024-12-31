@@ -1,4 +1,4 @@
-# H1N1_SMCseeker
+![image](https://github.com/user-attachments/assets/ce1f04ce-7384-495d-b464-9e072cc1ecd0)# H1N1_SMCseeker
 
 H1N1-SMCseeker is a model designed for screening small molecule compounds with anti-H1N1 activity. This repository contains models, training code and prediction code for H1N1_SMCseeker. Users can utilize H1N1_SMCseeker to search for potential anti-H1N1 small molecular compounds.
 
@@ -12,7 +12,7 @@ H1N1-SMCseeker is a model designed for screening small molecule compounds with a
 python main.py --in arg_split.txt
 ```
 
-## Perform data enhancement on the data
+## Perform data Augmentation on the data
 ```shell
 python main.py --in arg_enhance.txt
 ```
