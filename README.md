@@ -7,33 +7,38 @@ H1N1-SMCseeker is a model designed for screening small molecule compounds with a
 
 ## Requirements
 -GPU
-
-## Split the data set (train, test, val)
-```shell
-python main.py --in arg_split.txt
-```
-
-## Perform data Augmentation on the data
-```shell
-python main.py --in arg_enhance.txt
-```
-
-## Train your model
-```shell
-python main.py --in arg_finetune.txt
-```
-
-## test your data
-```shell
-python main.py --in arg_evaluate.txt
-```
-
 ## installation environment
 ```shell
 virtualenv venv
 source ./venv/bin/activate
 pip install -r requirements.txt
 ```
+
+##Use H1N1-SMCseeker predict your small molecular compounds
+1. Input file requirements:
+Strictly follow the format of H1N1_world, including an index column (starting from 1).
+2. Generate images.
+```shell
+python generate.py your_filename
+```
+4. test your data
+```shell
+python main.py --in arg_evaluate.txt
+```
+##Use SMCseer framework to train your model. Please note that our framework has the capability to be adapted to any antiviral drug research.
+1. Split the data set (train, test, val)
+```shell
+python main.py --in arg_split.txt
+```
+2. Perform data Augmentation on the data
+```shell
+python main.py --in arg_enhance.txt
+```
+3. Train your model
+```shell
+python main.py --in arg_finetune.txt
+```
+
 ## results files
 ```
 ./result/reframe_SMC_PRED_CPR.csv
