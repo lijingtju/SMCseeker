@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ## Use H1N1-SMCseeker predict your small molecular compounds
 1. Input file requirements:
-Strictly follow the format of H1N1_world, including an index column (starting from 1).
+Strictly follow the format of './dataset/expand/H1N1_world.csv', including an index column (starting from 1).
 2. Generate images.
 ```shell
 python generate.py your_filename
