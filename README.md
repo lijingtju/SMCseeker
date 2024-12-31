@@ -25,7 +25,8 @@ python generate.py your_filename_path
 ```shell
 python main.py --in arg_evaluate.txt
 ```
-## Use SMCseer framework to train your model. Please note that our framework has the capability to be adapted to any antiviral drug research.
+## Use SMCseer framework to train your model. 
+Please note that our framework has the capability to be adapted to any antiviral drug research.
 1. Split the data set (training, validation, test)
 ```shell
 python main.py --in arg_split.txt
