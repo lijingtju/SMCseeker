@@ -21,7 +21,7 @@ Strictly follow the format of `./dataset/expand/H1N1_world.csv`, including an in
 ```shell
 python generate.py your_filename_path
 ```
-4. Test your data
+3. Test your data
 ```shell
 python main.py --in arg_evaluate.txt
 ```
