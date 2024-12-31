@@ -21,7 +21,7 @@ Strictly follow the format of `./dataset/expand/H1N1_world.csv`, including an in
 ```shell
 python generate.py your_filename_path
 ```
-4. test your data
+4. Test your data
 ```shell
 python main.py --in arg_evaluate.txt
 ```
@@ -39,7 +39,7 @@ python main.py --in arg_enhance.txt
 python main.py --in arg_finetune.txt
 ```
 
-## results files
+## Results files
 ```
 ./result/reframe_SMC_PRED_CPR.csv
 ```
