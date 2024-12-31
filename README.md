@@ -19,7 +19,7 @@ pip install -r requirements.txt
 Strictly follow the format of `./dataset/expand/H1N1_world.csv`, including an index column (starting from `1`).
 2. Generate images.
 ```shell
-python generate.py your_filename
+python generate.py your_filename_path
 ```
 4. test your data
 ```shell
