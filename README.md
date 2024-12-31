@@ -7,7 +7,7 @@ H1N1-SMCseeker is a model designed for screening small molecule compounds with a
 ## Requirements
 -GPU
 
-## Shred the data set (train, test, val)
+## Split the data set (train, test, val)
 ```shell
 python main.py --in arg_split.txt
 ```
