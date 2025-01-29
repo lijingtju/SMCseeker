@@ -5,4 +5,4 @@ model_type resnet18AndMultiHeadAttention
 batch 32
 dataset 33w
 log_dir evaluate_log_53ep_mse
-resume ./weights/finetune/53_1726705785.pt
+resume ./weights/finetune/H1N1_SMCseeker.pt
