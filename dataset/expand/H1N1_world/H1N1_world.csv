@@ -1,4 +1,0 @@
-smiles,index,label,name
-CC=CCC(C)C(O)C1C(=O)NC(CC)C(=O)N(C)CC(=O)N(C)C(CC(C)C)C(=O)NC(C(C)C)C(=O)N(C)C(CC(C)C)C(=O)NC(C)C(=O)NC(C)C(=O)N(C)C(CC(C)C)C(=O)N(C)C(CC(C)C)C(=O)N(C)C(C(C)C)C(=O)N1C,1,0.31,1.png
-Nc1ncnc2c(C3NC(CO)C(O)C3O)c[nH]c12,2,0.31,2.png
-NC(=O)c1ncn(C2OC(CO)C(O)C2O)n1,3,0.99,3.png
