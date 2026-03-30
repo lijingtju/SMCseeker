@@ -152,10 +152,38 @@ class Finetune():
             ckp_keys = list(checkpoint['model_state_dict'])
             cur_keys = list(model.state_dict())
             model_sd = model.state_dict()
+            # print(model_sd)
             for ckp_key in ckp_keys:
-                model_sd[ckp_key] = checkpoint['model_state_dict'][ckp_key]
+                if ckp_key in model_sd and ( ckp_key != "fc.weight" and ckp_key != "fc.bias" ):
+                    model_sd[ckp_key] = checkpoint['model_state_dict'][ckp_key]
                 
             model.load_state_dict(model_sd,)
+
+        for param in model.conv1.parameters():
+            param.requires_grad = False
+
+        for param in model.bn1.parameters():
+            param.requires_grad = False
+        # 冻结权重 layer1
+        for param in model.layer1.parameters():
+            param.requires_grad = False
+        
+        # 冻结权重 layer2
+        for param in model.layer2.parameters():
+            param.requires_grad = False
+
+        # # 冻结权重 layer3
+        # for param in model.layer3.parameters():
+        #     param.requires_grad = False
+
+        # # 冻结权重 layer4
+        # for param in model.layer4.parameters():
+        #     param.requires_grad = False
+
+        # # 冻结 fc
+        # for param in model.fc.parameters():
+        #     param.requires_grad = False
+
         return model
     
     def loadLoss(self) -> torch.nn.MSELoss:
@@ -218,7 +246,8 @@ class Finetune():
             acc_loss += tmpLoss
         print("")
         ppv = TP/(TP+FP) if TP+FP > 0 else 0
-        return {"ppv":ppv, "TP":TP, "FP":FP, "TN":TN, "FN":FN}, acc_loss/self.train_steps if self.train_steps>0 else 999999999
+        trainLoss = acc_loss/self.train_steps if self.train_steps>0 else 999999999
+        return {"ppv":ppv, "TP":TP, "FP":FP, "TN":TN, "FN":FN, "loss":trainLoss}, trainLoss
     
     def outputTrainInfo(self, params:dict) -> dict:
         scale = params["step"] / self.train_steps
@@ -252,16 +281,21 @@ class Finetune():
         FP = 0
         TN = 0
         FN = 0
+        LOSS = 0.0
         preds = []
         allLabels = []
         labelName = []
+        dataLen = 0
         with torch.no_grad():
             for step, data in enumerate(dataloader):
+                dataLen += 1
                 images, labels, dataInfos = data
                 images = images.to(self.device)
                 labels = labels.to(self.device)
                 pred = self.model(images)
                 labels = labels.view(pred.shape).to(torch.float64)
+                loss = self.lossFunction(pred.double(), labels)
+                LOSS += loss.item()
                 predCpu = pred.cpu()
                 labelsCpu = labels.cpu()
                 ppv, tp, fp, tn, fn = self.evaluatePPV(preds=predCpu, labels=labelsCpu)
@@ -273,7 +307,8 @@ class Finetune():
                 allLabels.append(labelsCpu.tolist())
                 labelName.append(dataInfos["name"])
         ppv = TP/(TP+FP) if TP+FP > 0 else 0
-        return {"ppv":ppv, "TP":TP, "FP":FP, "TN":TN, "FN":FN, "pred":preds, "labels":allLabels, "labelName":labelName}
+        LOSS /= dataLen
+        return {"ppv":ppv, "TP":TP, "FP":FP, "TN":TN, "FN":FN, "pred":preds, "labels":allLabels, "labelName":labelName, "loss":LOSS}
         
 
     def outputLog(self, name:str, epoch:int, info:dict, symbol:str="🚀", isOutputPred:bool = False):
@@ -300,9 +335,9 @@ class Finetune():
             os.makedirs(self.save_model_dir)
         if not os.path.exists(self.log_path):
             itemCount = len(infos)
-            headInfo = "EPOCH, LOSS, MODEL, LR,, NAME, PPV, TP, FP, TN, FN,,"
+            headInfo = "EPOCH, LOSS, MODEL, LR,, NAME, LOSS, PPV, TP, FP, TN, FN,,"
             for i in range(itemCount-1):
-                headInfo += "NAME, PPV, TP, FP, TN, FN,,"
+                headInfo += "NAME, LOSS, PPV, TP, FP, TN, FN,,"
             with open(self.log_path, 'w', encoding='utf-8') as f:
                 f.write(headInfo)
         model_cpu = {k: v.cpu() for k,v in self.model.state_dict().items()}
@@ -317,7 +352,7 @@ class Finetune():
         torch.save(state, modelPath)
         lineInfo = "\n{},{:.9f},{},{},,".format(ep, loss, modeName, self.args.lr)
         for item in infos:
-            lineInfo += "{},{},{},{},{},{},,".format(item["name"], item["res"]["ppv"], item["res"]["TP"], item["res"]["FP"], item["res"]["TN"], item["res"]["FN"])
+            lineInfo += "{},{:.9f},{},{},{},{},{},,".format(item["name"], item["res"]["loss"], item["res"]["ppv"], item["res"]["TP"], item["res"]["FP"], item["res"]["TN"], item["res"]["FN"])
         with open(self.log_path, 'a+', encoding='utf-8') as f:
             f.write(lineInfo)
 
