@@ -14,10 +14,10 @@ class ResNet(torch.nn.Module):
         self.layer1 = self._make_layer(block, 64, layers[0])
         self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
-        self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
-
+        # self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
+        # self.drop = torch.nn.Dropout(0.3)
         self.avgpool = torch.nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = torch.nn.Linear(512 * block.expansion, num_classes)
+        self.fc = torch.nn.Linear(256 * block.expansion, num_classes)
 
     def _make_layer(self, block, planes, blocks, stride=1):
         downsample = None
@@ -45,10 +45,11 @@ class ResNet(torch.nn.Module):
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
-        x = self.layer4(x)
+        # x = self.layer4(x)
 
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
+        # x = self.drop(x)
         x = self.fc(x)
 
         return x
@@ -99,7 +100,7 @@ class ResNetAndMLP(torch.nn.Module):
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
-        x = self.layer4(x)
+        # x = self.layer4(x)
 
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
